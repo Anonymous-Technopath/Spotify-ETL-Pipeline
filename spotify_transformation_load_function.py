@@ -98,19 +98,19 @@ def lambda_handler(event, context):
 
         songs_key = 'transformed_data/songs_data/song_transformed_'+str(datetime.now()) +".csv"
         song_buffer = StringIO()
-        song_df.to_csv(song_buffer)
+        song_df.to_csv(song_buffer,index=False)
         song_content = song_buffer.getvalue()
         s3.put_object(Bucket=Bucket,Key=songs_key,Body=song_content)
 
         album_key = 'transformed_data/album_data/album_transformed_'+str(datetime.now()) +".csv"
         album_buffer = StringIO()
-        album_df.to_csv(album_buffer)
+        album_df.to_csv(album_buffer,index=False)
         album_content = album_buffer.getvalue()
         s3.put_object(Bucket=Bucket,Key=album_key,Body=album_content)
 
         artist_key = 'transformed_data/artist_data/artist_transformed_'+str(datetime.now()) +".csv"
         artist_buffer = StringIO()
-        artist_df.to_csv(artist_buffer)
+        artist_df.to_csv(artist_buffer,index=False)
         artist_content = artist_buffer.getvalue()
         s3.put_object(Bucket=Bucket,Key=artist_key,Body=artist_content)
 
@@ -122,4 +122,3 @@ def lambda_handler(event, context):
             }
             s3_resource.meta.client.copy(copy_source,Bucket,'raw_data/processed/' + key.split('/')[-1])
             s3_resource.Object(Bucket,key).delete()
-            
