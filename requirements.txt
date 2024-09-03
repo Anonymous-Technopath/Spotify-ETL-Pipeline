@@ -1,0 +1,4 @@
+spotipy
+ipykernel
+python-dotenv
+pandas
